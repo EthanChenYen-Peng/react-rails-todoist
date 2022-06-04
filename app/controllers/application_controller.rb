@@ -1,5 +1,14 @@
 class ApplicationController < ActionController::Base
-  private
+  inertia_share user: -> { current_user }
+  def current_user
+    return unless session[:user_id]
+
+    User.find(session[:user_id])
+  end
+
+  def authenticate_user
+    redirect_to new_user_path unless current_user
+  end
 
   def better_errors(errors)
     messages = {}
