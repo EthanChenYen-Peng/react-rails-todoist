@@ -1,17 +1,8 @@
 import * as React from 'react'
-import { Inertia } from '@inertiajs/inertia'
-import { usePage, useForm } from '@inertiajs/inertia-react'
+import { CgSpinner } from 'react-icons/cg'
+import { useForm } from '@inertiajs/inertia-react'
 
-interface ErrorResponse {
-  username?: string
-  email?: string
-  password?: string
-}
 
-interface HasNameAndValue {
-  name: string
-  value: string
-}
 
 function Register() {
   const { transform, setData, post, processing, errors } = useForm({
@@ -31,7 +22,6 @@ function Register() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-10">
       <h2 className="text-3xl">Register</h2>
-      {processing && 'Processing'}
       <form
         className="flex w-[90%] max-w-[500px] flex-col gap-4 rounded-lg bg-gray-300 p-10"
         onSubmit={handleSubmit}
@@ -44,7 +34,7 @@ function Register() {
           onChange={(e) => setData('username', e.target.value)}
         />
         {errors?.username && (
-          <div className="text-red-500">{errors.username}</div>
+          <div className="text-sm text-red-500">{errors.username}</div>
         )}
         <input
           type="email"
@@ -53,7 +43,9 @@ function Register() {
           className="px-4 py-2"
           onChange={(e) => setData('email', e.target.value)}
         />
-        {errors?.email && <div className="text-red-500">{errors.email}</div>}
+        {errors?.email && (
+          <div className="text-sm text-red-500">{errors.email}</div>
+        )}
         <input
           type="password"
           name="password"
@@ -62,13 +54,20 @@ function Register() {
           onChange={(e) => setData('password', e.target.value)}
         />
         {errors?.password && (
-          <div className="text-red-500">{errors.password}</div>
+          <div className="text-sm text-red-500">{errors.password}</div>
         )}
         <button
           type="submit"
-          className="mt-10 bg-primary px-3 py-2 text-xl text-white"
+          className={`mt-10 flex min-h-[50px] items-center justify-center px-3 py-2 text-xl text-white ${
+            processing ? 'bg-red-400' : 'bg-primary'
+          }`}
+          disabled={processing}
         >
-          Sign Up
+          {processing ? (
+            <CgSpinner className="h-8 w-8 animate-spin" />
+          ) : (
+            'Sign Up'
+          )}
         </button>
       </form>
     </div>
