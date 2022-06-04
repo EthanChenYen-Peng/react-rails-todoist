@@ -1,0 +1,7 @@
+module.exports = {
+  content: ["./app/frontend/**/*.{tsx,jsx}", "app/views/**/*.{html,erb}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
