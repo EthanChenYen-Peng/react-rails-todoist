@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import { render } from "react-dom";
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import "./index.css";
 const pages = import.meta.glob("../Pages/**/*.tsx");
@@ -17,7 +17,6 @@ async function resolvePage(name: string) {
 createInertiaApp({
   resolve: resolvePage,
   setup({ el, App, props }) {
-    const root = createRoot(el);
-    root.render(<App {...props} />);
+    render(<App {...props} />, el);
   },
 });
