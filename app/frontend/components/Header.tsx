@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from '@inertiajs/inertia-react'
 function Header() {
   return (
-    <nav className="flex  bg-primary py-12 px-14 text-gray-50">
+    <nav className="flex bg-primary py-12 px-14 text-gray-50">
       <div>Logo</div>
       <ul className="ml-auto flex gap-6">
         <li>
@@ -13,6 +13,9 @@ function Header() {
         </li>
         <li>
           <Link href="/register">Register</Link>
+        </li>
+        <li>
+          <Link href="/login">Login</Link>
         </li>
       </ul>
     </nav>
