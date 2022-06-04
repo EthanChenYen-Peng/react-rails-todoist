@@ -2,5 +2,9 @@
   "devDependencies": {
     "vite": "^2.9.9",
     "vite-plugin-ruby": "^3.0.12"
+  },
+  "dependencies": {
+    "@inertiajs/inertia": "^0.11.0",
+    "@inertiajs/inertia-react": "^0.8.0"
   }
 }
