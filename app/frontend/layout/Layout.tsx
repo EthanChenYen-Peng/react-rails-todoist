@@ -3,7 +3,7 @@ import React from 'react'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="h-full bg-gray-200">
       <Header />
       {children}
     </div>

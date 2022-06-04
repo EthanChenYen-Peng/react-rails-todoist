@@ -1,7 +1,11 @@
 module.exports = {
-  content: ["./app/frontend/**/*.{tsx,jsx}", "app/views/**/*.{html,erb}"],
+  content: ['./app/frontend/**/*.{tsx,jsx}', 'app/views/**/*.{html,erb}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#DB4C3F',
+      },
+    },
   },
   plugins: [],
-};
+}
