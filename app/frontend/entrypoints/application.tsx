@@ -2,6 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { createInertiaApp } from '@inertiajs/inertia-react'
 import './index.css'
+
+import Layout from '@/layout/Layout'
 const pages = import.meta.glob('../Pages/**/*.tsx')
 
 async function resolvePage(name: string) {
@@ -11,8 +13,11 @@ async function resolvePage(name: string) {
       `Unknown page ${name}. Is is located under Pages with tsx extension ?`
     )
   }
-  const content = await page()
-  return content.default
+
+  const importedModule = page()
+  const pageComponent = (await importedModule).default
+  pageComponent.layout = (page) => <Layout>{page}</Layout>
+  return pageComponent
 }
 createInertiaApp({
   resolve: resolvePage,
