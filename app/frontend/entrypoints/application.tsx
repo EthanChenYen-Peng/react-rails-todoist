@@ -4,6 +4,8 @@ import { createInertiaApp } from '@inertiajs/inertia-react'
 import './index.css'
 
 import Layout from '@/layout/Layout'
+import axios from 'axios'
+
 const pages = import.meta.glob('../Pages/**/*.tsx')
 
 async function resolvePage(name: string) {
@@ -22,6 +24,8 @@ async function resolvePage(name: string) {
 createInertiaApp({
   resolve: resolvePage,
   setup({ el, App, props }) {
+    const csrfToken = document.querySelector('meta[name=csrf-token]').content
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
     render(<App {...props} />, el)
   },
 })
