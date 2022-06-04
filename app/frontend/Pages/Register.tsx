@@ -2,8 +2,6 @@ import * as React from 'react'
 import { CgSpinner } from 'react-icons/cg'
 import { useForm } from '@inertiajs/inertia-react'
 
-
-
 function Register() {
   const { transform, setData, post, processing, errors } = useForm({
     email: '',
