@@ -9,12 +9,19 @@ function NewTaskForm({ close }: Props) {
     name: '',
     description: '',
   })
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     post('/tasks')
   }
   const disableSubmit = data.name === ''
+
+  React.useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [])
 
   React.useEffect(() => {
     if (wasSuccessful) {
@@ -29,6 +36,7 @@ function NewTaskForm({ close }: Props) {
           placeholder="Task name"
           className="w-full bg-inherit text-lg text-black focus:outline-none"
           onChange={(e) => setData('name', e.target.value)}
+          ref={inputRef}
         />
 
         <input

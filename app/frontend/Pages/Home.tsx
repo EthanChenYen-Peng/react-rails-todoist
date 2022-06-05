@@ -10,7 +10,17 @@ interface Props {
 
 function Home({ tasks }: Props) {
   const [editing, setEditing] = React.useState(false)
-  console.log(tasks)
+  React.useEffect(() => {
+    function handlKeyPress(e) {
+      if (e.key === 'Enter' && !editing) {
+        setEditing(true)
+      }
+    }
+    document.addEventListener('keypress', handlKeyPress)
+    return () => {
+      document.removeEventListener('keypress', handlKeyPress)
+    }
+  }, [])
   return (
     <div className="mx-auto mt-12 w-[90%] md:w-[70%] ">
       <div className="border-b-[1px] border-gray-400 pb-11">
