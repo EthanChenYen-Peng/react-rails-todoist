@@ -5,7 +5,7 @@ interface Props {
   close: () => void
 }
 function NewTaskForm({ close }: Props) {
-  const { data, errors, setData, post, wasSuccessful } = useForm({
+  const { data, setData, post, wasSuccessful } = useForm({
     name: '',
     description: '',
   })
