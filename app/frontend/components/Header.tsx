@@ -9,11 +9,11 @@ interface Props {
 }
 function Header({ user }: Props) {
   return (
-    <nav className="flex items-center py-7 text-xl bg-primary px-14 text-gray-50">
-      <div className="w-10 h-10">
+    <nav className="flex items-center bg-primary py-7 px-14 text-xl text-gray-50">
+      <div className="h-10 w-10">
         <img src={Logo} className="rounded-lg" />
       </div>
-      <ul className="flex ml-auto gap-6">
+      <ul className="ml-auto flex gap-6">
         {user ? (
           <>
             <li>

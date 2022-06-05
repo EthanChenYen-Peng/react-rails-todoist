@@ -39,7 +39,9 @@ function Login() {
           className="px-4 py-2"
           onChange={(e) => setData('password', e.target.value)}
         />
-        {errorMessage && <div className="text-sm text-red-500">{errorMessage}</div>}
+        {errorMessage && (
+          <div className="text-sm text-red-500">{errorMessage}</div>
+        )}
         <button
           type="submit"
           className={`mt-10 flex min-h-[50px] items-center justify-center px-3 py-2 text-xl text-white ${
