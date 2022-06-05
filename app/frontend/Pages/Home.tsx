@@ -2,7 +2,7 @@ import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import NewTaskForm from '@/components/Task/NewTaskForm'
 import TaskList from '@/components/Task/TaskList'
-import type { Task } from '@/components/Task/type'
+import type { Task } from '@/components/Task/types'
 
 interface Props {
   tasks: Task[]
@@ -10,9 +10,13 @@ interface Props {
 
 function Home({ tasks }: Props) {
   const [editing, setEditing] = React.useState(false)
+  const formRef = React.useRef<HTMLFormElement>(null)
   React.useEffect(() => {
-    function handlKeyPress(e) {
-      if (e.key === 'Enter' && !editing) {
+    function handlKeyPress(e: KeyboardEvent) {
+      if (e.key !== 'Enter') return
+      if (editing) {
+        formRef.current?.requestSubmit()
+      } else {
         setEditing(true)
       }
     }
@@ -20,7 +24,7 @@ function Home({ tasks }: Props) {
     return () => {
       document.removeEventListener('keypress', handlKeyPress)
     }
-  }, [])
+  }, [editing])
   return (
     <div className="mx-auto mt-12 w-[90%] md:w-[70%] ">
       <div className="border-b-[1px] border-gray-400 pb-11">
@@ -28,7 +32,7 @@ function Home({ tasks }: Props) {
       </div>
       <TaskList tasks={tasks} />
       {editing ? (
-        <NewTaskForm close={() => setEditing(false)} />
+        <NewTaskForm close={() => setEditing(false)} ref={formRef} />
       ) : (
         <div
           className="group cursor-pointer py-3"
