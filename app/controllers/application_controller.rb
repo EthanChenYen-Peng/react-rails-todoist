@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   def current_user
     return unless session[:user_id]
 
-    User.find(session[:user_id])
+    # Use find_by to not raise error when no record found.
+    User.find_by(id: session[:user_id])
   end
 
   def authenticate_user
