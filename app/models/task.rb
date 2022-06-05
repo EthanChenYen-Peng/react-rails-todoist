@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   belongs_to :user
 
   scope :completed, -> { where.not(completed_at: nil) }
+  scope :not_completed, -> { where(completed_at: nil) }
 
   def completed?
     !completed_at.nil?
