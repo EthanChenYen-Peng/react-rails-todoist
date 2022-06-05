@@ -52,7 +52,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
       <div className="flex justify-end gap-5">
         <button
           className="rounded-md bg-gray-300 px-3 py-3 text-xl text-gray-800"
-          onClick={close}
+          onClick={props.close}
         >
           Cancel
         </button>
