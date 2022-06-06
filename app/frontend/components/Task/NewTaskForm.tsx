@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from '@inertiajs/inertia-react'
 import useFocus from '@/utils/useFocus'
 import { BsCalendarDate } from 'react-icons/bs'
-import Datepicker from './Datepicker'
+import Datepicker from '../Datepicker'
 
 interface Props {
   close: () => void
