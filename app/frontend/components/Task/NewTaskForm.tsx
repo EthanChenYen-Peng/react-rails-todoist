@@ -6,18 +6,21 @@ interface Props {
   close: () => void
 }
 const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
-  const { data, setData, post, wasSuccessful } = useForm({
+  const { data, setData, post } = useForm({
     name: '',
     description: '',
   })
   const disableSubmit = data.name === ''
   const inputRef = useFocus()
 
-  React.useEffect(() => {
-    if (wasSuccessful) {
-      props.close()
-    }
-  }, [wasSuccessful, props])
+  const createTask = () => {
+    post('/tasks', {
+      onSuccess: () => {
+        props.close()
+      },
+    })
+  }
+
   return (
     <div>
       <form
@@ -25,7 +28,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
         ref={ref}
         onSubmit={(e) => {
           e.preventDefault()
-          post('/tasks')
+          createTask()
         }}
       >
         <input
@@ -57,7 +60,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault()
-            post('/tasks')
+            createTask()
           }}
           disabled={disableSubmit}
         >
