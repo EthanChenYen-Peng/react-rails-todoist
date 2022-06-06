@@ -11,6 +11,7 @@ interface Props {
 function Home({ tasks }: Props) {
   const [editing, setEditing] = React.useState(false)
   const formRef = React.useRef<HTMLFormElement>(null)
+  console.log('render home')
   React.useEffect(() => {
     function handlKeyPress(e: KeyboardEvent) {
       if (e.key !== 'Enter') return

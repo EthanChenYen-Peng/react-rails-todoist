@@ -12,26 +12,43 @@ interface Props {
 function TaskList({ tasks }: Props) {
   const { put } = useForm({ completed_at: Date.now() })
   const [editModal, setEditModal] = React.useState(false)
-  const [editingTask, setEditingTask] = React.useState<Task | null>(null)
+  const [editingTaskIndex, setEditingTaskIndex] = React.useState<number | null>(
+    null
+  )
+
+  const nextTask = () => {
+    if (editingTaskIndex === null) return
+    setEditingTaskIndex(editingTaskIndex + 1)
+  }
+
+  const previousTask = () => {
+    if (editingTaskIndex === null) return
+    setEditingTaskIndex(editingTaskIndex - 1)
+  }
 
   const completeTask = (task: Task) => {
     put(`/tasks/${task.id}`)
   }
+
+  const editingTask = editingTaskIndex !== null ? tasks[editingTaskIndex] : null
   return (
     <div>
-      {tasks.map((task) => (
+      {tasks.map((task, index) => (
         <div
           className="flex cursor-pointer  flex-col border-b-[1px] border-gray-400 py-5 transition-colors hover:bg-gray-200"
           key={task.id}
           onClick={() => {
             setEditModal(true)
-            setEditingTask(task)
+            setEditingTaskIndex(index)
           }}
         >
           <div className="flex items-center">
             <MdDone
               className="mr-2 h-7 w-7 translate-y-[1px] cursor-pointer rounded-full border-[1px] border-gray-500 bg-inherit p-1 text-gray-50 transition-colors duration-300 hover:text-gray-500"
-              onClick={() => completeTask(task)}
+              onClick={(e) => {
+                e.stopPropagation()
+                completeTask(task)
+              }}
             />
             <div className="">
               {task.name}
@@ -45,6 +62,8 @@ function TaskList({ tasks }: Props) {
           open={editModal}
           onClose={() => setEditModal(false)}
           task={editingTask}
+          nextTask={nextTask}
+          previousTask={previousTask}
         />
       )}
     </div>
