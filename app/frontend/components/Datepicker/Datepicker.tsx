@@ -25,14 +25,26 @@ const DueDateBtn = React.forwardRef<unknown, DueDateBtnProps>((props) => {
 
 DueDateBtn.displayName = 'DueDateBtn'
 
-function Datepicker() {
+interface Props {
+  setDate: (date: Date) => void
+}
+function Datepicker({ setDate }: Props) {
   const [startDate, setStartDate] = React.useState<Date | undefined>(undefined)
   return (
-    <DatePicker
-      selected={startDate}
-      onChange={(date: Date) => setStartDate(date)}
-      customInput={<DueDateBtn />}
-    />
+    <div
+      onClick={(e) => {
+        e.preventDefault()
+      }}
+    >
+      <DatePicker
+        selected={startDate}
+        onChange={(date: Date) => {
+          setStartDate(date)
+          setDate(date)
+        }}
+        customInput={<DueDateBtn />}
+      />
+    </div>
   )
 }
 
