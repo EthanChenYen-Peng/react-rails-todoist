@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from '@inertiajs/inertia-react'
 import useFocus from '@/utils/useFocus'
 import { BsCalendarDate } from 'react-icons/bs'
+import Datepicker from './Datepicker'
 
 interface Props {
   close: () => void
@@ -13,6 +14,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
   })
   const disableSubmit = data.name === ''
   const inputRef = useFocus()
+  const [openDatepicker, setOpenDatepicker] = React.useState(false)
 
   const createTask = () => {
     post('/tasks', {
@@ -47,12 +49,16 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
           onChange={(e) => setData('description', e.target.value)}
         />
 
-        <button className="flex items-center gap-2 rounded-md border-[1px] border-gray-400 py-1 px-2 text-gray-600 hover:bg-gray-300">
+        <button
+          onClick={() => setOpenDatepicker(!openDatepicker)}
+          className="flex items-center gap-2 rounded-md border-[1px] border-gray-400 py-1 px-2 text-gray-600 hover:bg-gray-300"
+        >
           <BsCalendarDate />
           Due date
         </button>
+        <Datepicker open={openDatepicker} />
       </form>
-      <div className="flex justify-end gap-5">
+      <form className="flex justify-end gap-5">
         <button
           className="rounded-md bg-gray-300 px-3 py-3 text-xl text-gray-800"
           onClick={props.close}
@@ -72,7 +78,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
         >
           Add task
         </button>
-      </div>
+      </form>
     </div>
   )
 })
