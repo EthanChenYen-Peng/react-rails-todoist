@@ -1,17 +1,37 @@
 import React from 'react'
+import { BsCalendarDate } from 'react-icons/bs'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './Datepicker.css'
 
-interface Props {
-  open: boolean
+interface DueDateBtnProps {
+  onClick(): void
+  value: Date
 }
-function Datepicker({ open }: Props) {
-  const [startDate, setStartDate] = React.useState(new Date())
+const DueDateBtn = React.forwardRef<unknown, DueDateBtnProps>((props) => {
+  const defaultValue = 'Due date'
+  return (
+    <button
+      onClick={props.onClick}
+      className="flex items-center gap-2 rounded-md border-[1px] border-gray-400 py-1 px-2 text-gray-600 hover:bg-gray-300"
+    >
+      <>
+        <BsCalendarDate />
+        {props.value || defaultValue}
+      </>
+    </button>
+  )
+})
+
+DueDateBtn.displayName = 'DueDateBtn'
+
+function Datepicker() {
+  const [startDate, setStartDate] = React.useState<Date | undefined>(undefined)
   return (
     <DatePicker
       selected={startDate}
       onChange={(date: Date) => setStartDate(date)}
+      customInput={<DueDateBtn />}
     />
   )
 }

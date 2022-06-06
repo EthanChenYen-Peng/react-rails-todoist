@@ -25,3 +25,8 @@
     background-color:  var(--color-primary);
     color: white;
 }
+.react-datepicker__triangle::after,
+.react-datepicker__triangle::before
+{
+  display: none;
+}
