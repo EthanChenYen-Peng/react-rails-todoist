@@ -23,7 +23,7 @@ function TaskList({ tasks }: Props) {
         >
           <div className="flex items-center">
             <MdDone
-              className="mr-2 h-7 w-7 translate-y-[1px] cursor-pointer rounded-full border-[1px] border-gray-500 bg-inherit p-1 text-gray-200 transition-colors duration-300 hover:text-gray-500"
+              className="mr-2 h-7 w-7 translate-y-[1px] cursor-pointer rounded-full border-[1px] border-gray-500 bg-inherit p-1 text-gray-50 transition-colors duration-300 hover:text-gray-500"
               onClick={() => completeTask(task)}
             />
             <div className="">
