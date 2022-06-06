@@ -47,7 +47,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
           onChange={(e) => setData('description', e.target.value)}
         />
 
-        <button className=" flex items-center gap-1 rounded-md border-[1px] border-gray-400 py-1 px-2 text-gray-500">
+        <button className="flex items-center gap-2 rounded-md border-[1px] border-gray-400 py-1 px-2 text-gray-600 hover:bg-gray-300">
           <BsCalendarDate />
           Due date
         </button>
