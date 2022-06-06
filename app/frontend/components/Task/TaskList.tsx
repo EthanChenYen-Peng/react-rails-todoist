@@ -1,25 +1,17 @@
 import React from 'react'
 import { MdDone } from 'react-icons/md'
 import { useForm } from '@inertiajs/inertia-react'
-import moment from 'moment'
-import { BsCalendarDate } from 'react-icons/bs'
 import type { Task } from './types'
+import TaskDueDate from './TaskDueDate'
 
 interface Props {
   tasks: Task[]
 }
 
-function formatDateString(dateString: string | null) {
-  console.log(dateString)
-  if (!dateString) return
-  const dateObj = new Date(dateString)
-  return moment(dateObj).format('MMM DD')
-}
 function TaskList({ tasks }: Props) {
   const { put } = useForm({ completed_at: Date.now() })
 
-  const handleClick: React.MouseEventHandler<SVGElement> = (e, task: Task) => {
-    console.log(task)
+  const completeTask = (task: Task) => {
     put(`/tasks/${task.id}`)
   }
   return (
@@ -32,16 +24,11 @@ function TaskList({ tasks }: Props) {
           <div className="flex items-center">
             <MdDone
               className="mr-2 h-7 w-7 translate-y-[1px] cursor-pointer rounded-full border-[1px] border-gray-500 bg-inherit p-1 text-gray-200 transition-colors duration-300 hover:text-gray-500"
-              onClick={(e) => handleClick(e, task)}
+              onClick={() => completeTask(task)}
             />
             <div className="">
               {task.name}
-              {task.due_date && (
-                <div className="flex items-center gap-2 text-sm text-purple-500">
-                  <BsCalendarDate />
-                  {formatDateString(task.due_date)}
-                </div>
-              )}
+              <TaskDueDate task={task} />
             </div>
           </div>
         </div>
