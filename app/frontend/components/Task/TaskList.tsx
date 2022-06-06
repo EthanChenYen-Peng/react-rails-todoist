@@ -3,6 +3,7 @@ import { MdDone } from 'react-icons/md'
 import { useForm } from '@inertiajs/inertia-react'
 import type { Task } from './types'
 import TaskDueDate from './TaskDueDate'
+import TaskEditModal from '../Modal/TaskEditModal'
 
 interface Props {
   tasks: Task[]
@@ -10,6 +11,7 @@ interface Props {
 
 function TaskList({ tasks }: Props) {
   const { put } = useForm({ completed_at: Date.now() })
+  const [editModal, setEditModal] = React.useState(false)
 
   const completeTask = (task: Task) => {
     put(`/tasks/${task.id}`)
@@ -20,6 +22,10 @@ function TaskList({ tasks }: Props) {
         <div
           className="flex flex-col  border-b-[1px] border-gray-400 py-5"
           key={task.id}
+          onClick={() => {
+            setEditModal(true)
+            console.log('werwqer')
+          }}
         >
           <div className="flex items-center">
             <MdDone
@@ -33,6 +39,7 @@ function TaskList({ tasks }: Props) {
           </div>
         </div>
       ))}
+      <TaskEditModal open={editModal} onClose={() => setEditModal(false)} />
     </div>
   )
 }
