@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from '@inertiajs/inertia-react'
+import useFocus from '@/utils/useFocus'
 
 interface Props {
   close: () => void
@@ -9,15 +10,8 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
     name: '',
     description: '',
   })
-  const inputRef = React.useRef<HTMLInputElement>(null)
-
   const disableSubmit = data.name === ''
-
-  React.useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [])
+  const inputRef = useFocus()
 
   React.useEffect(() => {
     if (wasSuccessful) {
