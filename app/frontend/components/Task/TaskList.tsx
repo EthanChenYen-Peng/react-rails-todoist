@@ -20,11 +20,10 @@ function TaskList({ tasks }: Props) {
     <div>
       {tasks.map((task) => (
         <div
-          className="flex flex-col  border-b-[1px] border-gray-400 py-5"
+          className="flex cursor-pointer  flex-col border-b-[1px] border-gray-400 py-5 transition-colors hover:bg-gray-200"
           key={task.id}
           onClick={() => {
             setEditModal(true)
-            console.log('werwqer')
           }}
         >
           <div className="flex items-center">
