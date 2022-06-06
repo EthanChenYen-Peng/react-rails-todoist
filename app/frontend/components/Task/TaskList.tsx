@@ -12,6 +12,7 @@ interface Props {
 function TaskList({ tasks }: Props) {
   const { put } = useForm({ completed_at: Date.now() })
   const [editModal, setEditModal] = React.useState(false)
+  const [editingTask, setEditingTask] = React.useState<Task | null>(null)
 
   const completeTask = (task: Task) => {
     put(`/tasks/${task.id}`)
@@ -24,6 +25,7 @@ function TaskList({ tasks }: Props) {
           key={task.id}
           onClick={() => {
             setEditModal(true)
+            setEditingTask(task)
           }}
         >
           <div className="flex items-center">
@@ -38,7 +40,13 @@ function TaskList({ tasks }: Props) {
           </div>
         </div>
       ))}
-      <TaskEditModal open={editModal} onClose={() => setEditModal(false)} />
+      {editingTask && (
+        <TaskEditModal
+          open={editModal}
+          onClose={() => setEditModal(false)}
+          task={editingTask}
+        />
+      )}
     </div>
   )
 }
