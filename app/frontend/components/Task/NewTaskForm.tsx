@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from '@inertiajs/inertia-react'
 import useFocus from '@/utils/useFocus'
+import { BsCalendarDate } from 'react-icons/bs'
 
 interface Props {
   close: () => void
@@ -45,6 +46,11 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
           className="mt-1 mb-4 w-full bg-inherit text-lg text-black focus:outline-none"
           onChange={(e) => setData('description', e.target.value)}
         />
+
+        <button className=" flex items-center gap-1 rounded-md border-[1px] border-gray-400 py-1 px-2 text-gray-500">
+          <BsCalendarDate />
+          Due date
+        </button>
       </form>
       <div className="flex justify-end gap-5">
         <button
