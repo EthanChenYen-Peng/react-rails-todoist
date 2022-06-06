@@ -6,12 +6,18 @@ import Datepicker from '../Datepicker'
 interface Props {
   close: () => void
 }
-
+interface FormDataType {
+  name: string
+  description: string
+  due_date: Date | null
+}
 const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
-  const { data, setData, post } = useForm({
+  const initalData: FormDataType = {
     name: '',
     description: '',
-  })
+    due_date: null,
+  }
+  const { data, setData, post } = useForm(initalData)
   const disableSubmit = data.name === ''
   const inputRef = useFocus()
 
@@ -47,7 +53,7 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
           className="mt-1 mb-4 w-full bg-inherit text-lg text-black focus:outline-none"
           onChange={(e) => setData('description', e.target.value)}
         />
-        <Datepicker />
+        <Datepicker setDate={(date: Date) => setData('due_date', date)} />
       </form>
       <form className="flex justify-end gap-5">
         <button
