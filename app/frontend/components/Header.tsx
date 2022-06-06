@@ -20,7 +20,7 @@ function Header({ user }: Props) {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/logout" method="delete">
+              <Link href="/logout" method="delete" as="button">
                 Logout
               </Link>
             </li>
