@@ -4,13 +4,15 @@ import Logo from '../images/logo.png'
 
 function PublicHeader() {
   return (
-    <div className="mx-auto mt-8 flex w-7/12 items-center">
+    <div className="mx-auto mt-8 flex w-11/12 items-center md:w-7/12">
       <Link href="/">
         <div className="flex items-center gap-2">
-          <div className="h-14 w-14">
+          <div className="h-10 w-10 md:h-14 md:w-14">
             <img src={Logo} className="rounded-lg" />
           </div>
-          <h2 className="text-3xl font-semibold text-primary">todoist</h2>
+          <h2 className="text-2xl font-semibold text-primary md:text-3xl">
+            todoist
+          </h2>
         </div>
       </Link>
       <ul className="ml-auto flex items-center gap-4">
