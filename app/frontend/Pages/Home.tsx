@@ -10,21 +10,19 @@ interface Props {
 
 function Home({ tasks }: Props) {
   const [editing, setEditing] = React.useState(false)
-  const formRef = React.useRef<HTMLFormElement>(null)
   React.useEffect(() => {
-    function handlKeyPress(e: KeyboardEvent) {
+    function handleKeyPress(e: KeyboardEvent) {
       if (e.key !== 'Enter') return
-      if (editing) {
-        formRef.current?.requestSubmit()
-      } else {
+      if (!editing) {
         setEditing(true)
       }
     }
-    document.addEventListener('keypress', handlKeyPress)
+    document.addEventListener('keypress', handleKeyPress)
     return () => {
-      document.removeEventListener('keypress', handlKeyPress)
+      document.removeEventListener('keypress', handleKeyPress)
     }
   }, [editing])
+
   return (
     <div className="mx-auto mt-12 w-[90%] md:w-[70%] ">
       <div className="border-b-[1px] border-gray-400 pb-11">
@@ -32,7 +30,7 @@ function Home({ tasks }: Props) {
       </div>
       <TaskSection tasks={tasks} />
       {editing ? (
-        <NewTaskForm close={() => setEditing(false)} ref={formRef} />
+        <NewTaskForm close={() => setEditing(false)} />
       ) : (
         <div
           className="group cursor-pointer py-3"

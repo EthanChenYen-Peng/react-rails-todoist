@@ -11,7 +11,7 @@ interface FormDataType {
   description: string
   due_date: number | undefined
 }
-const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
+function NewTaskForm(props: Props) {
   const initalData: FormDataType = {
     name: '',
     description: '',
@@ -28,12 +28,25 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
       },
     })
   }
+  const formRef = React.useRef<HTMLFormElement>(null)
+  React.useEffect(() => {
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.key !== 'Enter') return
+      if (disableSubmit) return
+      formRef.current?.requestSubmit()
+    }
+
+    document.addEventListener('keypress', handleKeyPress)
+    return () => {
+      document.removeEventListener('keypress', handleKeyPress)
+    }
+  }, [disableSubmit])
 
   return (
     <div>
       <form
         className="my-3 rounded-lg border-[1px] border-gray-400 p-5"
-        ref={ref}
+        ref={formRef}
         onSubmit={(e) => {
           e.preventDefault()
           createTask()
@@ -78,7 +91,6 @@ const NewTaskForm = React.forwardRef<HTMLFormElement, Props>((props, ref) => {
       </form>
     </div>
   )
-})
+}
 
-NewTaskForm.displayName = 'NewTaskForm'
 export default NewTaskForm

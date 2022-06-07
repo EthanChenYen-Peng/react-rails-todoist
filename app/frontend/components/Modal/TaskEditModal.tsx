@@ -21,21 +21,6 @@ export default function TaskEditModal({
   previousTask,
 }: Props) {
   const [editing, setEditing] = React.useState(false)
-  const formRef = React.useRef<HTMLFormElement>(null)
-  React.useEffect(() => {
-    function handlKeyPress(e: KeyboardEvent) {
-      if (e.key !== 'Enter') return
-      if (editing) {
-        formRef.current?.requestSubmit()
-      } else {
-        setEditing(true)
-      }
-    }
-    document.addEventListener('keypress', handlKeyPress)
-    return () => {
-      document.removeEventListener('keypress', handlKeyPress)
-    }
-  }, [editing])
   return (
     <Modal open={open} onClose={onClose}>
       <Dialog.Panel className="mx-auto w-11/12 rounded-lg bg-white py-2 md:w-6/12">
@@ -53,7 +38,7 @@ export default function TaskEditModal({
           />
           <div className="min-h-[300px] flex-1">
             {editing ? (
-              <NewTaskForm close={() => setEditing(false)} ref={formRef} />
+              <NewTaskForm close={() => setEditing(false)} />
             ) : (
               <TaskDisplay task={task} handleClick={() => setEditing(true)} />
             )}
