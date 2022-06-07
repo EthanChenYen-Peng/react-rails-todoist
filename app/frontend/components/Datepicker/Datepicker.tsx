@@ -27,9 +27,12 @@ DueDateBtn.displayName = 'DueDateBtn'
 
 interface Props {
   setDate: (date: number) => void
+  selectedDate?: Date
 }
-function Datepicker({ setDate }: Props) {
-  const [startDate, setStartDate] = React.useState<Date | undefined>(undefined)
+function Datepicker({ setDate, selectedDate }: Props) {
+  const [startDate, setStartDate] = React.useState<Date | undefined>(
+    selectedDate
+  )
   return (
     <div
       onClick={(e) => {

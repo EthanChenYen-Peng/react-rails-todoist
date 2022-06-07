@@ -4,7 +4,7 @@ import { Dialog } from '@headlessui/react'
 import Modal from './Modal'
 import type { Task } from '../Task/types'
 import ModalHeader from './ModalHeader'
-import NewTaskForm from '@/components/Task/NewTaskForm'
+import TaskEditForm from '@/components/Task/TaskEditForm'
 
 interface Props {
   open: boolean
@@ -38,7 +38,7 @@ export default function TaskEditModal({
           />
           <div className="min-h-[300px] flex-1">
             {editing ? (
-              <NewTaskForm close={() => setEditing(false)} />
+              <TaskEditForm close={() => setEditing(false)} task={task} />
             ) : (
               <TaskDisplay task={task} handleClick={() => setEditing(true)} />
             )}
