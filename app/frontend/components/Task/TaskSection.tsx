@@ -9,26 +9,39 @@ interface Props {
 
 function TaskSection({ tasks }: Props) {
   const [editModal, setEditModal] = React.useState(false)
-  const [editingTaskIndex, setEditingTaskIndex] = React.useState<number | null>(
+  const [editingTaskId, setEditingTaskId] = React.useState<string | null>(null)
+  const [nextTaskId, setNextTaskId] = React.useState<string | null>(null)
+  const [previousTaskId, setPreviousTaskId] = React.useState<string | null>(
     null
   )
 
+  const editingTask = tasks.find((task) => task.id === editingTaskId)
+  React.useEffect(() => {
+    const editingTaskIndex = tasks.findIndex(
+      (task) => task.id === editingTaskId
+    )
+    const nextTask = tasks[editingTaskIndex + 1]
+    if (nextTask) {
+      setNextTaskId(nextTask.id)
+    }
+
+    const previousTask = tasks[editingTaskIndex - 1]
+    if (previousTask) {
+      setPreviousTaskId(previousTask.id)
+    }
+  }, [editingTaskId, tasks])
   const nextTask = () => {
-    if (editingTaskIndex === null) return
-    setEditingTaskIndex(editingTaskIndex + 1)
+    setEditingTaskId(nextTaskId)
   }
 
   const previousTask = () => {
-    if (editingTaskIndex === null) return
-    setEditingTaskIndex(editingTaskIndex - 1)
+    setEditingTaskId(previousTaskId)
   }
-
-  const editingTask = editingTaskIndex !== null ? tasks[editingTaskIndex] : null
   return (
     <div>
       <TaskList
         tasks={tasks}
-        setEditingTaskIndex={setEditingTaskIndex}
+        setEditingTaskId={setEditingTaskId}
         setEditModal={setEditModal}
       />
       {editingTask && (

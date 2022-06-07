@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdDone, MdOutlineDescription } from 'react-icons/md'
 import { Dialog } from '@headlessui/react'
+import { useForm } from '@inertiajs/inertia-react'
 import Modal from './Modal'
 import type { Task } from '../Task/types'
 import ModalHeader from './ModalHeader'
@@ -21,6 +22,13 @@ export default function TaskEditModal({
   previousTask,
 }: Props) {
   const [editing, setEditing] = React.useState(false)
+
+  const { put } = useForm({ completed_at: Date.now() })
+
+  const completeTask = (task: Task) => {
+    put(`/tasks/${task.id}`)
+  }
+
   return (
     <Modal open={open} onClose={onClose}>
       <Dialog.Panel className="mx-auto w-11/12 rounded-lg bg-white py-2 md:w-6/12">
@@ -34,6 +42,7 @@ export default function TaskEditModal({
             className="mr-2 h-7 w-7 translate-y-[1px] cursor-pointer rounded-full border-[1px] border-gray-500 bg-inherit p-1 text-gray-50 transition-colors duration-300 hover:text-gray-500"
             onClick={(e) => {
               e.stopPropagation()
+              completeTask(task)
             }}
           />
           <div className="min-h-[300px] flex-1">

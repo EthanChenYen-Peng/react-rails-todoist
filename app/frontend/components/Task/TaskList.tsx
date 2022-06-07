@@ -6,11 +6,11 @@ import TaskDueDate from './TaskDueDate'
 
 interface Props {
   tasks: Task[]
-  setEditingTaskIndex(index: number): void
+  setEditingTaskId(id: string): void
   setEditModal(arg: boolean): void
 }
 
-function TaskList({ tasks, setEditingTaskIndex, setEditModal }: Props) {
+function TaskList({ tasks, setEditingTaskId, setEditModal }: Props) {
   const { put } = useForm({ completed_at: Date.now() })
 
   const completeTask = (task: Task) => {
@@ -19,13 +19,13 @@ function TaskList({ tasks, setEditingTaskIndex, setEditModal }: Props) {
 
   return (
     <>
-      {tasks.map((task, index) => (
+      {tasks.map((task) => (
         <div
           className="flex cursor-pointer  flex-col border-b-[1px] border-gray-400 py-5 transition-colors hover:bg-gray-200"
           key={task.id}
           onClick={() => {
             setEditModal(true)
-            setEditingTaskIndex(index)
+            setEditingTaskId(task.id)
           }}
         >
           <div className="flex items-center">
