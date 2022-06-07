@@ -1,7 +1,7 @@
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import NewTaskForm from '@/components/Task/NewTaskForm'
-import TaskList from '@/components/Task/TaskList'
+import TaskSection from '@/components/Task/TaskSection'
 import type { Task } from '@/components/Task/types'
 
 interface Props {
@@ -11,7 +11,6 @@ interface Props {
 function Home({ tasks }: Props) {
   const [editing, setEditing] = React.useState(false)
   const formRef = React.useRef<HTMLFormElement>(null)
-  console.log('render home')
   React.useEffect(() => {
     function handlKeyPress(e: KeyboardEvent) {
       if (e.key !== 'Enter') return
@@ -31,7 +30,7 @@ function Home({ tasks }: Props) {
       <div className="border-b-[1px] border-gray-400 pb-11">
         <h1 className="text-3xl font-bold">Inbox</h1>
       </div>
-      <TaskList tasks={tasks} />
+      <TaskSection tasks={tasks} />
       {editing ? (
         <NewTaskForm close={() => setEditing(false)} ref={formRef} />
       ) : (

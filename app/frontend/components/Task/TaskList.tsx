@@ -3,36 +3,22 @@ import { MdDone } from 'react-icons/md'
 import { useForm } from '@inertiajs/inertia-react'
 import type { Task } from './types'
 import TaskDueDate from './TaskDueDate'
-import TaskEditModal from '../Modal/TaskEditModal'
 
 interface Props {
   tasks: Task[]
+  setEditingTaskIndex(index: number): void
+  setEditModal(arg: boolean): void
 }
 
-function TaskList({ tasks }: Props) {
+function TaskList({ tasks, setEditingTaskIndex, setEditModal }: Props) {
   const { put } = useForm({ completed_at: Date.now() })
-  const [editModal, setEditModal] = React.useState(false)
-  const [editingTaskIndex, setEditingTaskIndex] = React.useState<number | null>(
-    null
-  )
-
-  const nextTask = () => {
-    if (editingTaskIndex === null) return
-    setEditingTaskIndex(editingTaskIndex + 1)
-  }
-
-  const previousTask = () => {
-    if (editingTaskIndex === null) return
-    setEditingTaskIndex(editingTaskIndex - 1)
-  }
 
   const completeTask = (task: Task) => {
     put(`/tasks/${task.id}`)
   }
 
-  const editingTask = editingTaskIndex !== null ? tasks[editingTaskIndex] : null
   return (
-    <div>
+    <>
       {tasks.map((task, index) => (
         <div
           className="flex cursor-pointer  flex-col border-b-[1px] border-gray-400 py-5 transition-colors hover:bg-gray-200"
@@ -57,16 +43,7 @@ function TaskList({ tasks }: Props) {
           </div>
         </div>
       ))}
-      {editingTask && (
-        <TaskEditModal
-          open={editModal}
-          onClose={() => setEditModal(false)}
-          task={editingTask}
-          nextTask={nextTask}
-          previousTask={previousTask}
-        />
-      )}
-    </div>
+    </>
   )
 }
 

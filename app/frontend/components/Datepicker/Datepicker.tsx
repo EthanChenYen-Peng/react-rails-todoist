@@ -39,7 +39,6 @@ function Datepicker({ setDate }: Props) {
       <DatePicker
         selected={startDate}
         onChange={(date: Date) => {
-          console.log(date.getTime())
           setStartDate(date)
           setDate(date.getTime())
         }}
