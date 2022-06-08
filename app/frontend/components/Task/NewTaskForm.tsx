@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from '@inertiajs/inertia-react'
 import useFocus from '@/utils/useFocus'
 import Datepicker from '../Datepicker'
+import { BsFlag } from 'react-icons/bs'
 
 interface Props {
   close: () => void
@@ -66,7 +67,12 @@ function NewTaskForm(props: Props) {
           className="mt-1 mb-4 w-full bg-inherit text-lg text-black focus:outline-none"
           onChange={(e) => setData('description', e.target.value)}
         />
-        <Datepicker setDate={(date: number) => setData('due_date', date)} />
+        <div className="flex items-center justify-between">
+          <Datepicker setDate={(date: number) => setData('due_date', date)} />
+          <div className="flex gap-3">
+            <BsFlag className="h-7 w-7 rounded-md p-1 text-gray-600 transition-colors hover:bg-gray-200" />
+          </div>
+        </div>
       </form>
       <form className="flex justify-end gap-5">
         <button
