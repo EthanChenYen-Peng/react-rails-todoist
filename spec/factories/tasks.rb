@@ -10,6 +10,7 @@
 #  updated_at   :datetime         not null
 #  completed_at :datetime
 #  due_date     :datetime
+#  priority     :integer          default("p4")
 #
 FactoryBot.define do
   factory :task do

@@ -10,10 +10,17 @@
 #  updated_at   :datetime         not null
 #  completed_at :datetime
 #  due_date     :datetime
+#  priority     :integer          default("p4")
 #
 class Task < ApplicationRecord
   validates :name, presence: true
   belongs_to :user
+  enum priority: {
+    p4: 4,
+    p3: 3,
+    p2: 2,
+    p1: 1
+  }, _prefix: true
 
   scope :completed, -> { where.not(completed_at: nil) }
   scope :not_completed, -> { where(completed_at: nil) }
