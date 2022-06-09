@@ -3,8 +3,7 @@ import { useForm } from '@inertiajs/inertia-react'
 import useFocus from '@/utils/useFocus'
 import Datepicker from '../Datepicker'
 import PrioritySelect from './PrioritySelect'
-
-type IPriority = 'p1' | 'p2' | 'p3' | 'p4'
+import type { IPriority } from './types'
 
 interface Props {
   close: () => void

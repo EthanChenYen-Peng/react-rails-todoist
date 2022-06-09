@@ -1,12 +1,12 @@
 import React from 'react'
 import { MdDone } from 'react-icons/md'
 import PriorityFlag from './PriorityFlag'
+import { IPriority } from '../Task/types'
 
 interface PriorityOption {
   name: string
   priority: IPriority
 }
-type IPriority = 'p1' | 'p2' | 'p3' | 'p4'
 
 const priorityOptions: PriorityOption[] = [
   { name: 'Priority 1', priority: 'p1' },
