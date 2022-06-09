@@ -2,6 +2,7 @@ import React from 'react'
 import { MdDone } from 'react-icons/md'
 import PriorityFlag from './PriorityFlag'
 import { IPriority } from '../Task/types'
+import useOutsideClick from '@/utils/useOutsideClick'
 
 interface PriorityOption {
   name: string
@@ -21,19 +22,13 @@ interface Props {
 }
 function PrioritySelect({ selected, setSelected }: Props) {
   const [open, setOpen] = React.useState(false)
+  const handleOutsideClick = () => {
+    setOpen(false)
+  }
+  const ref = useOutsideClick<HTMLDivElement>(handleOutsideClick)
 
-  React.useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      const element = e.target as HTMLElement
-      if (!element.closest('#priority-input-select')) {
-        setOpen(false)
-      }
-    }
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
-  }, [])
   return (
-    <div className="relative" id="priority-input-select">
+    <div className="relative" ref={ref}>
       <PriorityFlag
         priority={selected}
         className="h-7 w-7 rounded-md p-1 transition-colors hover:bg-gray-200"
