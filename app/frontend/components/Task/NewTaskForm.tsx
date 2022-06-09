@@ -4,6 +4,8 @@ import useFocus from '@/utils/useFocus'
 import Datepicker from '../Datepicker'
 import PrioritySelect from './PrioritySelect'
 
+type IPriority = 'p1' | 'p2' | 'p3' | 'p4'
+
 interface Props {
   close: () => void
 }
@@ -11,12 +13,14 @@ interface FormDataType {
   name: string
   description: string
   due_date: number | undefined
+  priority: IPriority
 }
 function NewTaskForm(props: Props) {
   const initalData: FormDataType = {
     name: '',
     description: '',
     due_date: undefined,
+    priority: 'p4',
   }
   const { data, setData, post } = useForm(initalData)
   const disableSubmit = data.name === ''
@@ -70,7 +74,12 @@ function NewTaskForm(props: Props) {
         <div className="flex items-center justify-between">
           <Datepicker setDate={(date: number) => setData('due_date', date)} />
           <div className="flex gap-3">
-            <PrioritySelect />
+            <PrioritySelect
+              selected={data.priority}
+              setSelected={(priority: IPriority) =>
+                setData('priority', priority)
+              }
+            />
           </div>
         </div>
       </form>

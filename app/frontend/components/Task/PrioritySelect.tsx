@@ -14,8 +14,12 @@ const priorityOptions: PriorityOption[] = [
   { name: 'Priority 3', priority: 'p3' },
   { name: 'Priority 4', priority: 'p4' },
 ]
-function PrioritySelect() {
-  const [selected, setSelected] = React.useState<IPriority>('p4')
+
+interface Props {
+  selected: IPriority
+  setSelected: (arg: IPriority) => void
+}
+function PrioritySelect({ selected, setSelected }: Props) {
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -37,7 +41,7 @@ function PrioritySelect() {
       />
       <div
         className={`${
-          open ? 'opacity-100' : 'opacity-0'
+          open ? 'block' : 'hidden'
         } absolute right-0 min-w-[250px] rounded-lg border-[1px] border-gray-300 bg-gray-50`}
       >
         <ul className="flex flex-col">
