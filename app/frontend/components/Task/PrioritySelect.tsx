@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import { BsFlag, BsFlagFill } from 'react-icons/bs'
+import React from 'react'
 import { MdDone } from 'react-icons/md'
+import PriorityFlag from './PriorityFlag'
 
 interface PriorityOption {
   name: string
-  color: string
-  id: string
+  priority: IPriority
 }
+type IPriority = 'p1' | 'p2' | 'p3' | 'p4'
+
 const priorityOptions: PriorityOption[] = [
-  { name: 'Priority 1', color: 'text-red-600', id: 'p1' },
-  { name: 'Priority 2', color: 'text-orange-600', id: 'p2' },
-  { name: 'Priority 3', color: 'text-blue-600', id: 'p3' },
-  { name: 'Priority 4', color: 'text-gray-400', id: 'p4' },
+  { name: 'Priority 1', priority: 'p1' },
+  { name: 'Priority 2', priority: 'p2' },
+  { name: 'Priority 3', priority: 'p3' },
+  { name: 'Priority 4', priority: 'p4' },
 ]
 function PrioritySelect() {
-  const [selected, setSelected] = React.useState('p4')
+  const [selected, setSelected] = React.useState<IPriority>('p4')
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -29,8 +30,9 @@ function PrioritySelect() {
   }, [])
   return (
     <div className="relative" id="priority-input-select">
-      <BsFlag
-        className="h-7 w-7 rounded-md p-1 text-gray-600 transition-colors hover:bg-gray-200"
+      <PriorityFlag
+        priority={selected}
+        className="h-7 w-7 rounded-md p-1 transition-colors hover:bg-gray-200"
         onClick={() => setOpen(true)}
       />
       <div
@@ -39,13 +41,13 @@ function PrioritySelect() {
         } absolute right-0 min-w-[250px] rounded-lg border-[1px] border-gray-300 bg-gray-50`}
       >
         <ul className="flex flex-col">
-          {priorityOptions.map(({ name, color, id }, index) => (
+          {priorityOptions.map(({ name, priority }, index) => (
             <Priority
               name={name}
-              color={color}
               key={index}
-              selected={id === selected}
-              onClick={() => setSelected(id)}
+              selected={priority === selected}
+              onClick={() => setSelected(priority)}
+              priority={priority}
             />
           ))}
         </ul>
@@ -56,21 +58,21 @@ function PrioritySelect() {
 
 function Priority({
   name,
-  color,
   selected,
   onClick,
+  priority,
 }: {
   name: string
-  color: string
   selected: boolean
   onClick(): void
+  priority: IPriority
 }) {
   return (
     <li
       className="flex cursor-pointer items-center gap-3 px-3 py-2 hover:bg-gray-200"
       onClick={onClick}
     >
-      <BsFlagFill className={`h-5 w-5 ${color}`} />
+      <PriorityFlag className="h-5 w-5" priority={priority} />
       <span className="font-light">{name}</span>
       {selected && <MdDone className="ml-auto text-red-700" />}
     </li>
