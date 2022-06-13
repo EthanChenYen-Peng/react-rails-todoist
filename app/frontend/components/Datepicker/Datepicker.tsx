@@ -41,6 +41,7 @@ function Datepicker({ setDate, selectedDate }: Props) {
     >
       <DatePicker
         selected={startDate}
+        minDate={new Date()}
         onChange={(date: Date) => {
           setStartDate(date)
           setDate(date.getTime())

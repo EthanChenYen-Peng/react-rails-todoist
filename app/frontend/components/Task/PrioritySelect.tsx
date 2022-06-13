@@ -32,12 +32,12 @@ function PrioritySelect({ selected, setSelected }: Props) {
       <PriorityFlag
         priority={selected}
         className="h-7 w-7 rounded-md p-1 transition-colors hover:bg-gray-200"
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen(!open)}
       />
       <div
         className={`${
           open ? 'block' : 'hidden'
-        } absolute right-0 min-w-[250px] rounded-lg border-[1px] border-gray-300 bg-gray-50`}
+        } absolute right-0 bottom-[40px] min-w-[250px] rounded-lg border-[1px] border-gray-300 bg-gray-50`}
       >
         <ul className="flex flex-col">
           {priorityOptions.map(({ name, priority }, index) => (

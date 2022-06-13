@@ -33,28 +33,17 @@ function NewTaskForm(props: Props) {
       },
     })
   }
-  const formRef = React.useRef<HTMLFormElement>(null)
-  React.useEffect(() => {
-    function handleKeyPress(e: KeyboardEvent) {
-      if (e.key !== 'Enter') return
-      if (disableSubmit) return
-      formRef.current?.requestSubmit()
-    }
-
-    document.addEventListener('keypress', handleKeyPress)
-    return () => {
-      document.removeEventListener('keypress', handleKeyPress)
-    }
-  }, [disableSubmit])
 
   return (
     <div>
       <form
         className="my-3 rounded-lg border-[1px] border-gray-400 p-5"
-        ref={formRef}
-        onSubmit={(e) => {
-          e.preventDefault()
-          createTask()
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            if (disableSubmit) return
+            createTask()
+          }
         }}
       >
         <input
